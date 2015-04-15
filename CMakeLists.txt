@@ -1,6 +1,17 @@
-add_bii_targets()
+# Compiler check
+if(CMAKE_COMPILER_IS_GNUCXX)
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.9)
+        message(FATAL_ERROR "Only gcc 4.9+ are supported")
+    endif()
+    
+    add_definitions(-std=c++14 -Wall -Wfatal-errors)
+elseif(MSVC)
+    if(MSVC_VERSION LESS 1900)
+        message(FATAL_ERROR "Only VS 2015+ are supported")
+    endif()
+endif()
 
-add_definitions(-std=c++14 -Wall -Wfatal-errors)
+add_bii_targets()
 ###############################################################################
 #      HELP                                                                   #
 ###############################################################################
