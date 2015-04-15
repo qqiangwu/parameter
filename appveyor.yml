@@ -4,7 +4,7 @@ os: Visual Studio 2015 CTP
 
 environment:
   matrix:
-    - generator: "MinGW Makefiles"
+    #- generator: "MinGW Makefiles"
     - generator: "Visual Studio 14"
 
 configuration:
@@ -13,7 +13,7 @@ configuration:
 
 install:
   - cinst -y biicode 
-  - cinst -y mingw
+  #- cinst -y mingw
   - cmd: set PATH=%PATH:CMake 2.8\bin=%;C:\ProgramData\chocolatey\lib\cmake.3.0.2\content\cmake-3.0.2-win32-x86\bin
   - cmd: set PATH=%PATH:Git\bin=%;C:\MinGW\bin
   - cmd: set PATH=%PATH%;C:\Program Files (x86)\BiiCode\bii;  
