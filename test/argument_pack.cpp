@@ -10,11 +10,7 @@ PARAMETER_KEYWORD(pos);
 PARAMETER_KEYWORD(ok);
 
 struct Myt {
-    template <class... Args>
-    Myt(Args... args)
-        : Myt(parameter::pack_args(std::forward<Args>(args)...))
-    {
-    }
+    PARAMETER_ENABLE_CONSTRUCTOR(Myt)
 
 private:
     template <class... Args>

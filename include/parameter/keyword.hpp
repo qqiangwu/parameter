@@ -3,7 +3,12 @@
 
 #include <parameter/detail/keyword.hpp>
 
-#define PARAMETER_KEYWORD(tag)\
-    constexpr auto tag##_ = ::parameter::detail::Keyword<struct tag>{}
+#define PARAMETER_KEYWORD_FULL(namespace_, tag)\
+    namespace namespace_ {\
+        struct tag;\
+    }\
+    constexpr auto tag##_ = ::parameter::detail::Keyword<namespace_::tag>{}
+
+#define PARAMETER_KEYWORD(tag)  PARAMETER_KEYWORD_FULL(keyword, tag)
 
 #endif  //!QIANGWU_PARAMETER_KEYWORD_HPP_

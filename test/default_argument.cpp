@@ -10,11 +10,7 @@ PARAMETER_KEYWORD(pos);
 PARAMETER_KEYWORD(ok);
 
 struct Myt {
-    template <class... Args>
-    Myt(Args... args)
-        : Myt(parameter::pack_args(std::forward<Args>(args)...))
-    {
-    }
+    PARAMETER_ENABLE_CONSTRUCTOR(Myt)
 
 private:
     template <class... Args>
@@ -30,6 +26,34 @@ private:
 TEST(default_argument_test, trivial_types)
 {
     Myt v{size_ = 10, pos_ = "Hello world"};
+}
+
+template <class... Args>
+void foo(Args... args)
+{
+    auto pack = parameter::pack_args(args...);
+
+    EXPECT_EQ(pack[size_], 1000);
+    EXPECT_EQ(pack[ok_ | false], false);
+}
+
+TEST(default_argument_test, function)
+{
+    foo(size_ = 1000, pos_ = true);
+}
+
+template <class... Args>
+void bar(Args... args)
+{
+    auto pack = parameter::pack_args(args...);
+
+    EXPECT_EQ(pack[size_ | 1000], 1000);
+    EXPECT_EQ(pack[ok_ | false], false);
+}
+
+TEST(default_argument_test, empty_function)
+{
+    bar();
 }
 
 int main(int argc, char* argv[])
